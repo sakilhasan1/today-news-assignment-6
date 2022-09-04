@@ -1,3 +1,24 @@
+
+// ..........category-name ...........
+const loadCategory = () => {
+    fetch('https://openapi.programming-hero.com/api/news/categories')
+        .then(res => res.json())
+        .then(data => displayCategory(data.data.news_category))
+}
+const displayCategory = Categoris => {
+    const divContainer = document.getElementById('container')
+    Categoris.forEach(item => {
+        const ul = document.createElement('ul')
+        ul.innerHTML = ` 
+        <a >${item.category_name}</a>
+        `;
+        divContainer.appendChild(ul);
+    });
+}
+loadCategory();
+
+// ...............card start ...............
+
 const loadCategoris = () => {
     const url = ' https://openapi.programming-hero.com/api/news/category/02'
     fetch(url)
@@ -8,6 +29,7 @@ const loadCategoris = () => {
 const displayCategories = categories => {
     const categoriesContainer = document.getElementById('categories-container')
     categories.forEach(category => {
+        // console.log(category);
         const categorieDiv = document.createElement('div');
         categorieDiv.classList.add('col');
         categorieDiv.innerHTML = `
@@ -19,7 +41,7 @@ const displayCategories = categories => {
             <div class="col-md-8 ">
                 <div class="card-body">
                     <h5 class="card-title">${category.title}</h5>
-                    <p class="card-text">${category.details.slice(0, 270)}</p>
+                    <p class="card-text">${category.details.slice(0, 260)}</p>
                   <div class="d-flex">
                  <div class="d-flex me-4">
                   <img src="${category.author.img}"  class="img-fluid rounded-circle" style=" max-width:10%;" >
@@ -27,7 +49,6 @@ const displayCategories = categories => {
                  </div>
                  <p> view: ${category.total_view}</p>
                   </div> 
-                  
                 </div>
             </div>
         </div>
@@ -36,23 +57,4 @@ const displayCategories = categories => {
         categoriesContainer.appendChild(categorieDiv);
     })
 }
-
-
-const loadCategory = () => {
-    fetch('https://openapi.programming-hero.com/api/news/categories')
-        .then(res => res.json())
-        .then(data => displayCategory(data.data.news_category))
-}
-const displayCategory = Categoris => {
-    const divContainer = document.getElementById('container')
-    Categoris.forEach(item => {
-        const ul = document.createElement('ul')
-        ul.innerHTML = ` 
-        <a ${item.category_id}  >${item.category_name}</a>
-        `;
-        divContainer.appendChild(ul);
-    });
-}
-
 loadCategoris();
-loadCategory();
